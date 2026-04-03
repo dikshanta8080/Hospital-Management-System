@@ -6,7 +6,9 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -33,6 +35,9 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor")
     @JsonManagedReference
     private List<Appointment> appointments;
+
+    @ManyToMany(mappedBy = "doctors")
+    private Set<Department> departments = new HashSet<>();
 
     public void addAppointment(Appointment appointment) {
         if (appointment != null) {
