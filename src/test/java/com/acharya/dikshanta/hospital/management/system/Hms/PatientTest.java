@@ -1,6 +1,5 @@
 package com.acharya.dikshanta.hospital.management.system.Hms;
 
-import com.acharya.dikshanta.hospital.management.system.Hms.dtos.PatientBasicDto;
 import com.acharya.dikshanta.hospital.management.system.Hms.model.Patient;
 import com.acharya.dikshanta.hospital.management.system.Hms.repository.PatientRepository;
 import com.acharya.dikshanta.hospital.management.system.Hms.types.BloodGroupType;
@@ -8,6 +7,9 @@ import com.acharya.dikshanta.hospital.management.system.Hms.types.Gender;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,6 +19,12 @@ import java.util.List;
 public class PatientTest {
     @Autowired
     private PatientRepository patientRepository;
+
+    private Pageable getPageble(int pageNo, int pageSize, String sortBy, Sort.Direction sortDir) {
+        Sort sort = Sort.by(sortDir, sortBy);
+        return PageRequest.of(pageNo, pageSize, sort);
+
+    }
 
     private void savePatient() {
         List<Patient> patients = new ArrayList<>();
@@ -68,9 +76,20 @@ public class PatientTest {
 //        List<PatientDto> patientDtos = patientRepository.findAllPatients();
 //        patientDtos.forEach(System.out::println);
 
-        PatientBasicDto patientBasicDtos = patientRepository.getBasicDetailsOfPatient("deuba@example.com");
-        System.out.println(patientBasicDtos);
-        List<Patient> patients = patientRepository.findAllPatientStartingWithLetter("P" + "%");
+//        PatientBasicDto patientBasicDtos = patientRepository.getBasicDetailsOfPatient("deuba@example.com");
+//        System.out.println(patientBasicDtos);
+//        List<Patient> patients = patientRepository.findAllPatientStartingWithLetter("P" + "%");
+//        patients.forEach(System.out::println);
+
+        patientRepository.listAllPatients().forEach(patientDtoProjection -> {
+            System.out.println(patientDtoProjection.getName());
+            System.out.println(patientDtoProjection.getEmail());
+            System.out.println();
+        });
+        List<Patient> patients = patientRepository
+                .findAll(getPageble(0, 7, "id", Sort.Direction.ASC))
+                .get()
+                .toList();
         patients.forEach(System.out::println);
     }
 }
