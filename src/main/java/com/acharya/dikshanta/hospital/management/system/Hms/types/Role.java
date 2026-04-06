@@ -1,6 +1,7 @@
 package com.acharya.dikshanta.hospital.management.system.Hms.types;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.List;
@@ -39,9 +40,9 @@ public enum Role {
 
     private final List<Permissions> permissions;
 
-    public List<SimpleGrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> authorities = permissions.stream()
-                .map(permissions1 -> new SimpleGrantedAuthority(permissions1.getPermissionName()))
+    public List<GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = permissions.stream()
+                .map(permission -> new SimpleGrantedAuthority(permission.getPermissionName()))
                 .collect(Collectors.toList());
         authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
         return authorities;

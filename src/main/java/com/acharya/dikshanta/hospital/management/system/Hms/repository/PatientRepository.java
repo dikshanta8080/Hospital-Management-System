@@ -1,7 +1,5 @@
 package com.acharya.dikshanta.hospital.management.system.Hms.repository;
 
-import com.acharya.dikshanta.hospital.management.system.Hms.dtos.PatientBasicDto;
-import com.acharya.dikshanta.hospital.management.system.Hms.dtos.PatientDto;
 import com.acharya.dikshanta.hospital.management.system.Hms.model.Patient;
 import com.acharya.dikshanta.hospital.management.system.Hms.projections.PatientDtoProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,11 +12,11 @@ import java.util.Optional;
 
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long> {
-    @Query("SELECT new com.acharya.dikshanta.hospital.management.system.Hms.dtos.PatientBasicDto" +
-            "(p.name," +
-            "p.email)" +
-            " FROM Patient p WHERE p.email=:email")
-    PatientBasicDto getBasicDetailsOfPatient(@Param(value = "email") String email);
+//    @Query("SELECT new com.acharya.dikshanta.hospital.management.system.Hms.dtos.PatientBasicDto" +
+//            "(p.name," +
+//            "p.email)" +
+//            " FROM Patient p WHERE p.email=:email")
+//    PatientBasicDto getBasicDetailsOfPatient(@Param(value = "email") String email);
 
     boolean existsByEmail(String email);
 
@@ -39,15 +37,15 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     @Query("SELECT p FROM Patient  p WHERE p.name=:name AND p.email=:email")
     Patient findByEmailAndName(@Param(value = "email") String email, @Param(value = "name") String name);
 
-    @Query("SELECT new com.acharya.dikshanta.hospital.management.system.Hms.dtos.PatientDto(\n" +
-            "    p.id,\n" +
-            "    p.name,\n" +
-            "    p.birthDate,\n" +
-            "    p.email,\n" +
-            "    p.gender,\n" +
-            "    p.bloodGroup\n" +
-            ") FROM Patient p")
-    List<PatientDto> findAllPatients();
+//    @Query("SELECT new com.acharya.dikshanta.hospital.management.system.Hms.dtos.PatientDto(\n" +
+//            "    p.id,\n" +
+//            "    p.name,\n" +
+//            "    p.birthDate,\n" +
+//            "    p.email,\n" +
+//            "    p.gender,\n" +
+//            "    p.bloodGroup\n" +
+//            ") FROM Patient p")
+//    List<PatientDto> findAllPatients();
 
     @Query(value = "SELECT * FROM Patient p WHERE p.name LIKE :regex", nativeQuery = true)
     List<Patient> findAllPatientStartingWithLetter(@Param(value = "regex") String regex);
