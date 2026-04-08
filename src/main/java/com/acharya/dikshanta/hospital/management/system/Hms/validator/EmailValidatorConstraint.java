@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 public class EmailValidatorConstraint implements ConstraintValidator<EmailValidator, String> {
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        return s.endsWith("@gmail.com");
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+        return s.matches(regex);
     }
 }

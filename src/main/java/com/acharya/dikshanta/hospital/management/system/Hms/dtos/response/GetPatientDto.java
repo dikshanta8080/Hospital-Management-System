@@ -6,17 +6,16 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
-public class PatientRegistrationResponseDto {
+public class GetPatientDto {
+    private Long id;
     private String name;
     private LocalDate birthDate;
     private String email;
     private Gender gender;
     private BloodGroupType bloodGroup;
- 
 }

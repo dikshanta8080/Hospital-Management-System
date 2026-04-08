@@ -15,3 +15,14 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+utils:
+  admin:
+    name: Dikshanta Acharya
+    email: dikshantaacharya04@gmail.com
+    gender: MALE
+    password: root
+    birthDate: "2006-11-23"
+    bloodGroup: O_POSITIVE
+
+

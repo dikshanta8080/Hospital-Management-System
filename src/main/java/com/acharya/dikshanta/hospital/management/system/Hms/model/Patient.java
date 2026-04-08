@@ -51,7 +51,7 @@ public class Patient {
     private BloodGroupType bloodGroup;
 
     @OneToOne
-    @JoinColumn(name = "insurance_id")
+    @JoinColumn(name = "insurance_id", nullable = true)
     private Insurance insurance;
 
     @OneToMany(mappedBy = "patient")
