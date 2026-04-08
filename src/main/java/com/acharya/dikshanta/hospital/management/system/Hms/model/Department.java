@@ -1,5 +1,6 @@
 package com.acharya.dikshanta.hospital.management.system.Hms.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,14 +24,22 @@ public class Department {
     @OneToOne
     @JoinColumn(name = "hod_id")
     private Doctor headOfDepartment;
-
-    @ManyToMany
-    @JoinTable(
-            name = "department_doctor",
-            joinColumns = @JoinColumn(name = "doctor_id"),
-            inverseJoinColumns = @JoinColumn(name = "department_id")
-
-    )
+    @OneToMany
+    @JsonManagedReference
     private Set<Doctor> doctors = new HashSet<>();
+
+    public void addDoctor(Doctor doctor) {
+        if (doctor != null) {
+            doctors.add(doctor);
+            doctor.setDepartment(this);
+        }
+    }
+
+    public void removeDoctor(Doctor doctor) {
+        if (doctor != null) {
+            doctors.remove(doctor);
+            doctor.setDepartment(null);
+        }
+    }
 
 }

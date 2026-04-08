@@ -1,14 +1,13 @@
 package com.acharya.dikshanta.hospital.management.system.Hms.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -36,8 +35,10 @@ public class Doctor {
     @JsonManagedReference
     private List<Appointment> appointments;
 
-    @ManyToMany(mappedBy = "doctors")
-    private Set<Department> departments = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    @JsonBackReference
+    private Department department;
 
     public void addAppointment(Appointment appointment) {
         if (appointment != null) {
