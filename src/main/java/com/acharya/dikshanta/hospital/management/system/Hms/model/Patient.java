@@ -56,7 +56,12 @@ public class Patient {
 
     @OneToMany(mappedBy = "patient")
     @JsonManagedReference
+    @ToString.Exclude
     private List<Appointment> appointments;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
 
     public void addAppointment(Appointment appointment) {
         if (appointment != null) {

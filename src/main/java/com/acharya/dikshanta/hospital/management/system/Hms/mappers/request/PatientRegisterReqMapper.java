@@ -14,6 +14,7 @@ public class PatientRegisterReqMapper implements Function<PatientRegistrationReq
                 .builder()
                 .name(requestDto.getName())
                 .email(requestDto.getEmail())
+                .gender(requestDto.getGender())
                 .birthDate(requestDto.getBirthDate())
                 .bloodGroup(requestDto.getBloodGroup())
                 .build();

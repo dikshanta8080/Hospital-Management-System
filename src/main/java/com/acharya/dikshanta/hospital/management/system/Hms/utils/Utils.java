@@ -1,30 +1,26 @@
 package com.acharya.dikshanta.hospital.management.system.Hms.utils;
 
-import com.acharya.dikshanta.hospital.management.system.Hms.types.BloodGroupType;
-import com.acharya.dikshanta.hospital.management.system.Hms.types.Gender;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
-import java.time.LocalDate;
+import org.springframework.stereotype.Component;
 
 @ConfigurationProperties(prefix = "utils")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Component
+@ToString
+@Setter
 public class Utils {
     private Admin admin;
 
     @Getter
+    @Setter
     @NoArgsConstructor
     @AllArgsConstructor
+    @ToString
     public static class Admin {
-        private String name;
         private String email;
-        private Gender gender;
         private String password;
-        private LocalDate birthDate;
-        private BloodGroupType bloodGroup;
     }
 }

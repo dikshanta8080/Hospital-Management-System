@@ -22,15 +22,20 @@ public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false, length = 100)
     private String name;
+
     @Column(length = 100, nullable = false)
     private String specialization;
+
     @Column(nullable = false, length = 50)
     private String email;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
+
     @OneToMany(mappedBy = "doctor")
     @JsonManagedReference
     private List<Appointment> appointments;
@@ -39,6 +44,10 @@ public class Doctor {
     @JoinColumn(name = "department_id")
     @JsonBackReference
     private Department department;
+    
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public void addAppointment(Appointment appointment) {
         if (appointment != null) {

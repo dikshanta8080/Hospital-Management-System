@@ -15,11 +15,6 @@ public enum Permissions {
     DOCTOR_UPDATE("doctor:update"),
     DOCTOR_DELETE("doctor:delete"),
 
-    RECEPTIONIST_CREATE("receptionist:create"),
-    RECEPTIONIST_READ("receptionist:read"),
-    RECEPTIONIST_UPDATE("receptionist:update"),
-    RECEPTIONIST_DELETE("receptionist:delete"),
-
     ADMIN_CREATE("admin:create"),
     ADMIN_READ("admin:read"),
     ADMIN_UPDATE("admin:update"),

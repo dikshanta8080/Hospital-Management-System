@@ -24,12 +24,6 @@ public enum Role {
             Permissions.DOCTOR_DELETE
     )),
 
-    RECEPTIONIST(List.of(
-            Permissions.RECEPTIONIST_CREATE,
-            Permissions.RECEPTIONIST_READ,
-            Permissions.RECEPTIONIST_UPDATE,
-            Permissions.RECEPTIONIST_DELETE
-    )),
 
     ADMIN(List.of(
             Permissions.ADMIN_CREATE,

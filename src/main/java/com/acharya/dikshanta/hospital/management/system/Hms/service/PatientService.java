@@ -7,7 +7,10 @@ import com.acharya.dikshanta.hospital.management.system.Hms.exceptions.PatientAl
 import com.acharya.dikshanta.hospital.management.system.Hms.mappers.request.PatientRegisterReqMapper;
 import com.acharya.dikshanta.hospital.management.system.Hms.mappers.response.PatientRegisterResMapper;
 import com.acharya.dikshanta.hospital.management.system.Hms.model.Patient;
+import com.acharya.dikshanta.hospital.management.system.Hms.model.User;
 import com.acharya.dikshanta.hospital.management.system.Hms.repository.PatientRepository;
+import com.acharya.dikshanta.hospital.management.system.Hms.repository.UserRepository;
+import com.acharya.dikshanta.hospital.management.system.Hms.types.Role;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,15 +25,24 @@ public class PatientService {
     private final PasswordEncoder passwordEncoder;
     private final PatientRegisterReqMapper reqMapper;
     private final PatientRegisterResMapper resMapper;
+    private final UserRepository userRepository;
 
     @Transactional
     public PatientRegistrationResponseDto createPatient(PatientRegistrationRequestDto requestDto) {
-        if (patientRepository.existsByEmail(requestDto.getEmail())) {
+        if (patientRepository.existsByEmail(requestDto.getEmail())
+                || userRepository.existsByEmail(requestDto.getEmail())) {
             throw new PatientAlreadyExistsException("Patient with this email already exists");
         }
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
         Patient patient = reqMapper.apply(requestDto);
+        User user = User.builder()
+                .email(requestDto.getEmail())
+                .password(encodedPassword)
+                .role(Role.PATIENT)
+                .build();
+        User savedUser = userRepository.save(user);
         patient.setPassword(encodedPassword);
+        patient.setUser(savedUser);
         Patient savedPatient = patientRepository.save(patient);
         return resMapper.apply(savedPatient);
 
