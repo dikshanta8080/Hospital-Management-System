@@ -13,7 +13,6 @@ public class PatientRegisterReqMapper implements Function<PatientRegistrationReq
         return Patient
                 .builder()
                 .name(requestDto.getName())
-                .email(requestDto.getEmail())
                 .gender(requestDto.getGender())
                 .birthDate(requestDto.getBirthDate())
                 .bloodGroup(requestDto.getBloodGroup())

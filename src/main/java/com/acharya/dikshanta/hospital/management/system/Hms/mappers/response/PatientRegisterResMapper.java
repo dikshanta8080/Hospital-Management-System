@@ -10,6 +10,15 @@ import java.util.function.Function;
 public class PatientRegisterResMapper implements Function<Patient, PatientRegistrationResponseDto> {
     @Override
     public PatientRegistrationResponseDto apply(Patient patient) {
-        return null;
+        return PatientRegistrationResponseDto
+                .builder()
+                .id(patient.getId())
+                .name(patient.getName())
+                .email(patient.getUser().getEmail())
+                .gender(patient.getGender())
+                .birthDate(patient.getBirthDate())
+                .bloodGroup(patient.getBloodGroup())
+                .role(patient.getUser().getRole())
+                .build();
     }
 }

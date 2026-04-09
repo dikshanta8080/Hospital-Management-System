@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @Getter
 @Setter
-public class AddDepartmentResponseDto {
+public class DepartmentResponseDto {
     private Long id;
     private String name;
 }

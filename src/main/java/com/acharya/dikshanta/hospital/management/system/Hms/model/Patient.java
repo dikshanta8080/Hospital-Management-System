@@ -34,11 +34,6 @@ public class Patient {
 
     private LocalDate birthDate;
 
-    @Column(nullable = false, length = 100)
-    private String email;
-    @Column(nullable = false, length = 100)
-    private String password;
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -59,7 +54,7 @@ public class Patient {
     @ToString.Exclude
     private List<Appointment> appointments;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id", unique = true)
     private User user;
 

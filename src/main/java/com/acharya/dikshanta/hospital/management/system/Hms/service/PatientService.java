@@ -11,8 +11,10 @@ import com.acharya.dikshanta.hospital.management.system.Hms.model.User;
 import com.acharya.dikshanta.hospital.management.system.Hms.repository.PatientRepository;
 import com.acharya.dikshanta.hospital.management.system.Hms.repository.UserRepository;
 import com.acharya.dikshanta.hospital.management.system.Hms.types.Role;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,7 @@ public class PatientService {
 
     @Transactional
     public PatientRegistrationResponseDto createPatient(PatientRegistrationRequestDto requestDto) {
-        if (patientRepository.existsByEmail(requestDto.getEmail())
+        if (patientRepository.existsByUserEmail(requestDto.getEmail())
                 || userRepository.existsByEmail(requestDto.getEmail())) {
             throw new PatientAlreadyExistsException("Patient with this email already exists");
         }
@@ -40,21 +42,30 @@ public class PatientService {
                 .password(encodedPassword)
                 .role(Role.PATIENT)
                 .build();
+        /*Maybe this line is not necessary because i used cascading*/
         User savedUser = userRepository.save(user);
-        patient.setPassword(encodedPassword);
+        /**/
         patient.setUser(savedUser);
         Patient savedPatient = patientRepository.save(patient);
         return resMapper.apply(savedPatient);
 
     }
 
-    public List<GetPatientDto> getAllPatients() {
-        return patientRepository.getAllPatient();
+    public List<GetPatientDto> getAllPatients(Pageable pageable) {
+        return patientRepository.getAllPatient(pageable).stream().toList();
     }
 
     @Transactional
     public void deletePatient(Long id) {
+        if (!patientRepository.existsById(id)) {
+            throw new EntityNotFoundException("Patient with this id does not exists");
+        }
         patientRepository.deleteById(id);
+    }
+
+    public PatientRegistrationResponseDto getPatientById(Long id) {
+        Patient patient = patientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Patient with this id does not exists"));
+        return resMapper.apply(patient);
     }
 
 }

@@ -35,6 +35,8 @@ public class SecurityConfig {
                                         "/webjars/**",
                                         "/api/v1/health/**"
                                 ).permitAll()
+                                .requestMatchers("/api/v1/**")
+                                .permitAll()
                                 .anyRequest().authenticated()
 
                 );

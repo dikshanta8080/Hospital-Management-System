@@ -6,6 +6,7 @@ import com.acharya.dikshanta.hospital.management.system.Hms.types.Role;
 import com.acharya.dikshanta.hospital.management.system.Hms.utils.Utils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.NonNull;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,7 @@ public class AdminLoader implements CommandLineRunner {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String @NonNull ... args) throws Exception {
         Utils.Admin admin = utils.getAdmin();
         if (!userRepository.existsByEmail(admin.getEmail())) {
             User user = User.builder()

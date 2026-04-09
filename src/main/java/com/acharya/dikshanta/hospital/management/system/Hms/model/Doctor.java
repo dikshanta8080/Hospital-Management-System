@@ -29,9 +29,6 @@ public class Doctor {
     @Column(length = 100, nullable = false)
     private String specialization;
 
-    @Column(nullable = false, length = 50)
-    private String email;
-
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -41,11 +38,11 @@ public class Doctor {
     private List<Appointment> appointments;
 
     @ManyToOne
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "department_id", nullable = true)
     @JsonBackReference
     private Department department;
-    
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 

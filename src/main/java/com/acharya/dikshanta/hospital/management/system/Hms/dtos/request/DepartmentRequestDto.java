@@ -14,7 +14,7 @@ import lombok.*;
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = "unique_name", columnNames = {"name"})
 })
-public class AddDepartmentRequestDto {
+public class DepartmentRequestDto {
     @Column(length = 100, nullable = false)
     private String name;
 }
