@@ -52,4 +52,9 @@ public class PatientService {
         return patientRepository.getAllPatient();
     }
 
+    @Transactional
+    public void deletePatient(Long id) {
+        patientRepository.deleteById(id);
+    }
+
 }

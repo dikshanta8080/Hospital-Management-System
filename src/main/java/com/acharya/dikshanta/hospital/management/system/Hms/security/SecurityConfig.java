@@ -27,6 +27,14 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(HEALTH_ROUTE).permitAll()
+                                .requestMatchers(
+                                        "/swagger-ui.html",
+                                        "/swagger-ui/**",
+                                        "/v3/api-docs/**",
+                                        "/swagger-resources/**",
+                                        "/webjars/**",
+                                        "/api/v1/health/**"
+                                ).permitAll()
                                 .anyRequest().authenticated()
 
                 );

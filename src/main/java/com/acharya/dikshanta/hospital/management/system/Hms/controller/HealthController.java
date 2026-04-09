@@ -15,7 +15,7 @@ public class HealthController {
     @GetMapping("/check")
     public ResponseEntity<String> getHealthStatus(HttpServletRequest req, HttpServletResponse res) {
         String sessionId = req.getSession().getId();
-        String message = "Tomcat is rinning in port 8080 with session id " + sessionId;
+        String message = "Tomcat is running in port 8080 with session id " + sessionId;
         return new ResponseEntity<>(message, HttpStatus.OK);
 
     }
