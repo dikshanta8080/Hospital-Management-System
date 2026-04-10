@@ -20,6 +20,9 @@ utils:
   admin:
     email: dikshantaacharya04@gmail.com
     password: root
+  jwt:
+    expiry: 10
+    secret: mZ9Yw4VYx9x5dXG0l4sFv8g3c3y6Jv2u7hL1QmTqR5sN8KpX2bC9eD6fH7jK3LpZrA0uV1wXyZ4bT6nQ8cM5dE2fG9hJkL
 
 
 

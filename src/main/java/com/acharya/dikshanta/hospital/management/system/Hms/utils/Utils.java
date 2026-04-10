@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 @Setter
 public class Utils {
     private Admin admin;
+    private Jwt jwt;
 
     @Getter
     @Setter
@@ -22,5 +23,15 @@ public class Utils {
     public static class Admin {
         private String email;
         private String password;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @ToString
+    public static class Jwt {
+        private Integer expiry;
+        private String secret;
     }
 }
