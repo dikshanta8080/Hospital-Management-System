@@ -7,10 +7,7 @@ import com.acharya.dikshanta.hospital.management.system.Hms.service.DoctorServic
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -25,6 +22,17 @@ public class DoctorController {
                 .httpStatus(HttpStatus.CREATED)
                 .message("Doctor Created Successfully")
                 .responseObject(doctor)
+                .build();
+        return new ResponseEntity<>(apiResponse, apiResponse.getHttpStatus());
+    }
+
+    @DeleteMapping("/delete/{doctorId}")
+    public ResponseEntity<ApiResponse<DoctorResponseDto>> deleteDoctor(@PathVariable Long doctorId) {
+        DoctorResponseDto doctorResponseDto = doctorService.deleteDoctor(doctorId);
+        ApiResponse<DoctorResponseDto> apiResponse = ApiResponse.<DoctorResponseDto>builder()
+                .httpStatus(HttpStatus.OK)
+                .message("Deletion Successful")
+                .responseObject(doctorResponseDto)
                 .build();
         return new ResponseEntity<>(apiResponse, apiResponse.getHttpStatus());
     }

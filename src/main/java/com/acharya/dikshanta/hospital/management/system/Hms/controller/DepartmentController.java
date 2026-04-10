@@ -2,6 +2,7 @@ package com.acharya.dikshanta.hospital.management.system.Hms.controller;
 
 import com.acharya.dikshanta.hospital.management.system.Hms.dtos.ApiResponse;
 import com.acharya.dikshanta.hospital.management.system.Hms.dtos.request.AddMultipleDepartmentRequestDto;
+import com.acharya.dikshanta.hospital.management.system.Hms.dtos.request.AssignDoctorToDepartmentRequestDto;
 import com.acharya.dikshanta.hospital.management.system.Hms.dtos.request.AssignHodRequestDto;
 import com.acharya.dikshanta.hospital.management.system.Hms.dtos.request.DepartmentRequestDto;
 import com.acharya.dikshanta.hospital.management.system.Hms.dtos.response.AddMultipleDepartmentResponseDto;
@@ -47,6 +48,30 @@ public class DepartmentController {
                 .httpStatus(HttpStatus.OK)
                 .message("Assigned HOD")
                 .responseObject("Head of department assigned successfully")
+                .build();
+        return new ResponseEntity<>(apiResponse, apiResponse.getHttpStatus());
+
+
+    }
+
+    @PostMapping("/assigndoctor")
+    public ResponseEntity<ApiResponse<String>> assignDoctorToDepartment(@RequestBody AssignDoctorToDepartmentRequestDto requestDto) {
+        departmentService.assignDoctor(requestDto);
+        ApiResponse<String> apiResponse = ApiResponse.<String>builder()
+                .httpStatus(HttpStatus.OK)
+                .message("Assigned Doctor")
+                .responseObject("Doctor assigned successfully")
+                .build();
+        return new ResponseEntity<>(apiResponse, apiResponse.getHttpStatus());
+    }
+
+    @DeleteMapping("/removehod/{departmentId}")
+    public ResponseEntity<ApiResponse<String>> removeHod(@PathVariable Long departmentId) {
+        departmentService.removeHod(departmentId);
+        ApiResponse<String> apiResponse = ApiResponse.<String>builder()
+                .httpStatus(HttpStatus.OK)
+                .message("Hod Removed")
+                .responseObject("Hod removed successfully successfully")
                 .build();
         return new ResponseEntity<>(apiResponse, apiResponse.getHttpStatus());
     }

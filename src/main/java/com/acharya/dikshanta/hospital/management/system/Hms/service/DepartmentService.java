@@ -1,6 +1,7 @@
 package com.acharya.dikshanta.hospital.management.system.Hms.service;
 
 import com.acharya.dikshanta.hospital.management.system.Hms.dtos.request.AddMultipleDepartmentRequestDto;
+import com.acharya.dikshanta.hospital.management.system.Hms.dtos.request.AssignDoctorToDepartmentRequestDto;
 import com.acharya.dikshanta.hospital.management.system.Hms.dtos.request.DepartmentRequestDto;
 import com.acharya.dikshanta.hospital.management.system.Hms.dtos.response.AddMultipleDepartmentResponseDto;
 import com.acharya.dikshanta.hospital.management.system.Hms.dtos.response.DepartmentResponseDto;
@@ -103,4 +104,24 @@ public class DepartmentService {
                 .name(department.getName())
                 .build();
     }
+
+
+    public void assignDoctor(AssignDoctorToDepartmentRequestDto requestDto) {
+        Department department = departmentRepository.findById(requestDto.getDepartmentId()).orElseThrow(() -> new DepartmentDoesNotExistsException("Department with provided id does not exists"));
+
+        Doctor doctor = doctorRepository.findById(requestDto.getDepartmentId()).orElseThrow(() -> new DoctorDoesNotExistsException(("Doctor with provided id does not exists")));
+        doctor.setDepartment(department);
+        Doctor savedDoctor = doctorRepository.save(doctor);
+        department.getDoctors().add(doctor);
+        departmentRepository.save(department);
+
+
+    }
+
+    public void removeHod(Long departmentId) {
+        Department department = departmentRepository.findById(departmentId).orElseThrow(() -> new DepartmentDoesNotExistsException("Department with provided id does not exists"));
+        department.setHeadOfDepartment(null);
+    }
+
+
 }
