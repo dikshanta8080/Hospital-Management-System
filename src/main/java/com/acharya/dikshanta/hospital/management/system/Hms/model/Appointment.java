@@ -3,6 +3,7 @@ package com.acharya.dikshanta.hospital.management.system.Hms.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -33,4 +34,9 @@ public class Appointment {
     @JoinColumn(name = "doctor_id", nullable = false)
     @JsonBackReference
     private Doctor doctor;
+    
+    @Column(updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
 }
