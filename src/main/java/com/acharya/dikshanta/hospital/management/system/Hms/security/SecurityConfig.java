@@ -31,9 +31,11 @@ public class SecurityConfig {
     private static final String HEALTH_ROUTE = "/api/v1/health/**";
     private static final String PROTECTED_ROUTE = "/api/v1/protrected/**";
     private static final String AUTH_ROUTE = "/api/v1/auth/**";
+    private static final String BASE_URL = "/api/v1";
     private final JwtFilter jwtFilter;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     private final CustomAccessDeniedHandler accessDeniedHandler;
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
@@ -47,7 +49,7 @@ public class SecurityConfig {
                                         "/v3/api-docs/**",
                                         "/swagger-resources/**",
                                         "/webjars/**",
-                                        "/api/v1/health/**"
+                                        BASE_URL + "/health/**"
                                 ).permitAll()
                                 .requestMatchers("/api/v1/**")
                                 .permitAll()

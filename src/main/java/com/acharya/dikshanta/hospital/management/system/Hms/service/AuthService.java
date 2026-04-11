@@ -5,6 +5,7 @@ import com.acharya.dikshanta.hospital.management.system.Hms.dtos.response.LoginR
 import com.acharya.dikshanta.hospital.management.system.Hms.model.User;
 import com.acharya.dikshanta.hospital.management.system.Hms.model.UserPrincipal;
 import com.acharya.dikshanta.hospital.management.system.Hms.types.Role;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,7 +20,7 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-
+    @Transactional
     public LoginResponse login(LoginRequest loginRequest) {
         LoginResponse loginResponse;
         Authentication authentication = authenticationManager.authenticate
@@ -37,12 +38,18 @@ public class AuthService {
                     .role(Role.PATIENT)
                     .profileId(patientId)
                     .build();
-        } else {
+        } else if (user.getRole() == Role.ADMIN) {
             Long doctorId = user.getDoctor().getId();
             loginResponse = LoginResponse.builder()
                     .token(token)
                     .role(Role.DOCTOR)
                     .profileId(doctorId)
+                    .build();
+        } else {
+            loginResponse = LoginResponse.builder()
+                    .token(token)
+                    .role(Role.ADMIN)
+                    .profileId(null)
                     .build();
         }
         return loginResponse;
