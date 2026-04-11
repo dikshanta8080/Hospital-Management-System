@@ -38,7 +38,7 @@ public class AuthService {
                     .role(Role.PATIENT)
                     .profileId(patientId)
                     .build();
-        } else if (user.getRole() == Role.ADMIN) {
+        } else if (user.getRole() == Role.DOCTOR) {
             Long doctorId = user.getDoctor().getId();
             loginResponse = LoginResponse.builder()
                     .token(token)

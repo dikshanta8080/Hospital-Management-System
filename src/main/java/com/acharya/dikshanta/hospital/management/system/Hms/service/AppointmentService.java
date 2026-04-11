@@ -7,6 +7,7 @@ import com.acharya.dikshanta.hospital.management.system.Hms.mappers.response.App
 import com.acharya.dikshanta.hospital.management.system.Hms.model.Appointment;
 import com.acharya.dikshanta.hospital.management.system.Hms.model.Doctor;
 import com.acharya.dikshanta.hospital.management.system.Hms.model.Patient;
+import com.acharya.dikshanta.hospital.management.system.Hms.repository.AppointmentRepository;
 import com.acharya.dikshanta.hospital.management.system.Hms.repository.DepartmentRepository;
 import com.acharya.dikshanta.hospital.management.system.Hms.repository.DoctorRepository;
 import com.acharya.dikshanta.hospital.management.system.Hms.repository.PatientRepository;
@@ -22,6 +23,7 @@ public class AppointmentService {
     private final PatientRepository patientRepository;
     private final DepartmentRepository departmentRepository;
     private final AppointmentResponseMapper responseMapper;
+    private final AppointmentRepository appointmentRepository;
 
     @Transactional
     public AppointmentResponseDto createAppointment(AppointmentRequestDto requestDto) {
@@ -33,7 +35,8 @@ public class AppointmentService {
                 .reason(requestDto.getReason())
                 .appointmentTime(requestDto.getAppointmentTime())
                 .build();
-        return responseMapper.apply(appointment);
+        Appointment savedAppointment = appointmentRepository.save(appointment);
+        return responseMapper.apply(savedAppointment);
 
     }
 }
