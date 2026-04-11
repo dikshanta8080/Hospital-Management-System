@@ -42,9 +42,8 @@ public class PatientService {
                 .password(encodedPassword)
                 .role(Role.PATIENT)
                 .build();
-        /*Maybe this line is not necessary because i used cascading*/
+
         User savedUser = userRepository.save(user);
-        /**/
         patient.setUser(savedUser);
         Patient savedPatient = patientRepository.save(patient);
         return resMapper.apply(savedPatient);

@@ -25,6 +25,7 @@ public class DoctorService {
     private final PasswordEncoder passwordEncoder;
     private final DepartmentRepository departmentRepository;
 
+    @Transactional
     public DoctorResponseDto createDoctor(DoctorRequestDto requestDto) {
         if (doctorRepository.existsByUserEmail(requestDto.getEmail()) || userRepository.existsByEmail(requestDto.getEmail())) {
             throw new EntityExistsException("Doctor with this email already exists");
@@ -35,13 +36,16 @@ public class DoctorService {
                 .password(encodedPassword)
                 .role(Role.DOCTOR)
                 .build();
+        User savedUser = userRepository.save(user);
         Doctor doctor = Doctor.builder()
                 .name(requestDto.getName())
                 .specialization(requestDto.getSpecialization())
-                .user(user)
+                .user(savedUser)
                 .build();
+
         Doctor savedDoctor = doctorRepository.save(doctor);
-        return doctorResponseMapper.apply(doctor);
+        user.setDoctor(savedDoctor);
+        return doctorResponseMapper.apply(savedDoctor);
     }
 
     @Transactional

@@ -14,6 +14,7 @@ public class DoctorResponseMapper implements Function<Doctor, DoctorResponseDto>
                 .builder()
                 .id(doctor.getId())
                 .name(doctor.getName())
+                .email(doctor.getUser().getEmail())
                 .specialization(doctor.getSpecialization())
                 .role(doctor.getUser().getRole())
                 .build();

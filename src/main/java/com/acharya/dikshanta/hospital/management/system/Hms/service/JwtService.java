@@ -1,6 +1,6 @@
 package com.acharya.dikshanta.hospital.management.system.Hms.service;
 
-import com.acharya.dikshanta.hospital.management.system.Hms.model.User;
+import com.acharya.dikshanta.hospital.management.system.Hms.model.UserPrincipal;
 import com.acharya.dikshanta.hospital.management.system.Hms.utils.Utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -23,14 +23,14 @@ public class JwtService {
         return Keys.hmacShaKeyFor(byteStream);
     }
 
-    public String getJwt(User user) {
+    public String getJwt(UserPrincipal user) {
         return Jwts.builder()
-                .setSubject(user.getEmail())
-                .claim("authorities", user.getRole().getAuthorities())
+                .setSubject(user.getUsername())
+                .claim("userId", user.getUser().getId())
+                .claim("role", user.getUser().getRole().name())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + utils.getJwt().getExpiry() * 60 * 1000))
                 .signWith(generateKeys())
-                .claim("Role", user.getRole())
                 .compact();
 
     }

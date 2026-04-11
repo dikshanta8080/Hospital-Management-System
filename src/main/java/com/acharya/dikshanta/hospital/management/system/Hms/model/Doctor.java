@@ -26,6 +26,7 @@ public class Doctor {
     @Column(nullable = false, length = 100)
     private String name;
 
+
     @Column(length = 100, nullable = false)
     private String specialization;
 
@@ -42,7 +43,7 @@ public class Doctor {
     @JsonBackReference
     private Department department;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private User user;
 

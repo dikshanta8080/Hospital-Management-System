@@ -49,6 +49,7 @@ public class Patient {
     @JoinColumn(name = "insurance_id", nullable = true)
     private Insurance insurance;
 
+
     @OneToMany(mappedBy = "patient")
     @JsonManagedReference
     @ToString.Exclude
