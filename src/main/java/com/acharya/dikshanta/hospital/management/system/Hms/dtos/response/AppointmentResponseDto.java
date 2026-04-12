@@ -1,5 +1,6 @@
 package com.acharya.dikshanta.hospital.management.system.Hms.dtos.response;
 
+import com.acharya.dikshanta.hospital.management.system.Hms.types.AppointmentStatus;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,8 @@ public class AppointmentResponseDto {
     private String doctorName;
     private LocalDateTime appointmentTime;
     private String reason;
+    private AppointmentStatus appointmentStatus;
     private LocalDateTime createdAt;
+
 
 }

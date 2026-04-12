@@ -24,6 +24,7 @@ public class ApiEndpoints {
 
     // Appointment routes
     public static final String APPOINTMENT_CREATE = "/api/v1/appointment/create";
+    public static final String APPOINTMENT_CANCEL = "/api/v1/appointment/cancel";
 
     // Health monitoring route
     public static final String HEALTH_CHECK = "/api/v1/health/check";

@@ -17,6 +17,7 @@ public class AppointmentResponseMapper implements Function<Appointment, Appointm
                 .doctorName(appointment.getDoctor().getName())
                 .reason(appointment.getReason())
                 .appointmentTime(appointment.getAppointmentTime())
+                .appointmentStatus(appointment.getAppointmentStatus())
                 .createdAt(appointment.getCreatedAt())
                 .build();
 

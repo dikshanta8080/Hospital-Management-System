@@ -51,7 +51,6 @@ public enum Role {
             Permissions.DEPARTMENT_ASSIGN_DOCTOR,
 
             Permissions.APPOINTMENT_RESCHEDULE,
-            Permissions.APPOINTMENT_CANCEL,
             Permissions.APPOINTMENT_VIEW
 
 

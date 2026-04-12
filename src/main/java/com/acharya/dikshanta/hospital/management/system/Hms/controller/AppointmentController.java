@@ -7,10 +7,7 @@ import com.acharya.dikshanta.hospital.management.system.Hms.service.AppointmentS
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,5 +24,17 @@ public class AppointmentController {
                 .responseObject(responseDto)
                 .build();
         return new ResponseEntity<>(apiResponse, apiResponse.getHttpStatus());
+    }
+
+    @PutMapping("/cancel/{appointmentId}")
+    public ResponseEntity<ApiResponse<AppointmentResponseDto>> cancelAppointment(@PathVariable Long appointmentId) {
+        AppointmentResponseDto appointmentResponseDto = appointmentService.cancelAppointment(appointmentId);
+        ApiResponse<AppointmentResponseDto> apiResponse = ApiResponse.<AppointmentResponseDto>builder()
+                .httpStatus(HttpStatus.OK)
+                .message("Appointment cancelled")
+                .responseObject(appointmentResponseDto)
+                .build();
+        return new ResponseEntity<>(apiResponse, apiResponse.getHttpStatus());
+
     }
 }

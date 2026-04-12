@@ -1,5 +1,6 @@
 package com.acharya.dikshanta.hospital.management.system.Hms.model;
 
+import com.acharya.dikshanta.hospital.management.system.Hms.types.AppointmentStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,9 +35,13 @@ public class Appointment {
     @JoinColumn(name = "doctor_id", nullable = false)
     @JsonBackReference
     private Doctor doctor;
-    
+
     @Column(updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AppointmentStatus appointmentStatus;
 
 }

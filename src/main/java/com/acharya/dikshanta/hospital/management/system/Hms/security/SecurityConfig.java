@@ -71,6 +71,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, DEPARTMENT_ADD_API, DEPARTMENT_ADD_MULTIPLE).hasAuthority(DEPARTMENT_CREATE.getPermissionName())
                                 .requestMatchers(HttpMethod.PUT, DEPARTMENT_ASSIGN_DOCTOR, DEPARTMENT_ASSIGN_HOD_API).hasAnyAuthority(Permissions.DEPARTMENT_ASSIGN_HOD.getPermissionName(), Permissions.DEPARTMENT_ASSIGN_DOCTOR.getPermissionName())
                                 .requestMatchers(HttpMethod.POST, ApiEndpoints.APPOINTMENT_CREATE).hasAuthority(Permissions.APPOINTMENT_CREATE.getPermissionName())
+                                .requestMatchers(HttpMethod.PUT, ApiEndpoints.APPOINTMENT_CANCEL).hasAuthority(Permissions.APPOINTMENT_CANCEL.getPermissionName())
                                 .requestMatchers(HttpMethod.DELETE, DEPARTMENT_REMOVE_HOD_API).hasAuthority(DEPARTMENT_DELETE.getPermissionName())
                                 .anyRequest().authenticated()
                 )
